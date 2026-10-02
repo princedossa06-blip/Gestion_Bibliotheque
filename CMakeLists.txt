@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.16)
+project(Bibliotheque CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+add_compile_options(-Wall -Wextra)
+
+# Dépendances : MySQL Connector/C++ (libmysqlcppconn-dev) et libsodium (libsodium-dev)
+add_executable(biblio src/main.cpp)
+target_link_libraries(biblio mysqlcppconn sodium)
+
+enable_testing()
+add_executable(test_biblio tests/test_scenario.cpp)
+target_include_directories(test_biblio PRIVATE src)
+target_link_libraries(test_biblio mysqlcppconn sodium)
+add_test(NAME scenario COMMAND test_biblio)
